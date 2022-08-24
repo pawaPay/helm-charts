@@ -7,7 +7,7 @@ name: Release Charts
 on:
   push:
     branches:
-    - master
+    - develop
     paths:
     - "stable/activemq-artemis/**"
     - ".github/workflows/helm-release.yml"
