@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "activemq.fullname" . }}-ingress
+  labels: {{ include "activemq.labels" . | nindent 4 }}
+{{- if .Values.service.labels }}
+{{ toYaml .Values.service.labels | indent 4}}
+{{- end }}
+{{- with .Values.service.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  type: ClusterIP
+  selector:
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}"
+    app: {{ template "activemq.fullname" . }}
+  ports:
+    - name: console
+      port: 8161
+{{- end -}}

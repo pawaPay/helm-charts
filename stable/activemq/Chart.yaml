@@ -1,0 +1,11 @@
+apiVersion: v1
+description: Apache ActiveMQ is an open source message broker written in Java together with a full Java Message Service (JMS) client
+keywords:
+- activemq
+- messaging
+maintainers:
+- name: pawaPay Infra team
+name: activemq
+version: 1.0.1
+appVersion: 5.17.1
+engine: gotpl
