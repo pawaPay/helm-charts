@@ -9,7 +9,7 @@ on:
     branches:
     - develop
     paths:
-    - "stable/activemq-artemis/**"
+    - "stable/**"
     - ".github/workflows/helm-release.yml"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
