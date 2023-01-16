@@ -4,7 +4,7 @@ image:
   pullPolicy: IfNotPresent
 
 serviceAccount:
-  create: false
+  enabled: false
 
 resources:
   limits:
