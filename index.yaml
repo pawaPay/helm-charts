@@ -42,4 +42,15 @@ entries:
     urls:
     - https://github.com/pawaPay/helm-charts/releases/download/activemq-artemis-1.0.1/activemq-artemis-1.0.1.tgz
     version: 1.0.1
+  proxysql:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-01-16T17:22:27.123118552Z"
+    description: A Helm chart for Kubernetes
+    digest: 14b4ae96f622eddd082d815d90d6003b36a1024a01e088a0b48f31b118c65bcf
+    name: proxysql
+    type: application
+    urls:
+    - https://github.com/pawaPay/helm-charts/releases/download/proxysql-0.0.1/proxysql-0.0.1.tgz
+    version: 0.0.1
 generated: "2022-08-24T08:56:11.433524685Z"
