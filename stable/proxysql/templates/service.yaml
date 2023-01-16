@@ -14,5 +14,9 @@ spec:
       protocol: TCP
       port: 6032
       targetPort: admin
+    - name: metrics
+      protocol: TCP
+      port: 6070
+      targetPort: metrics
   selector:
     {{- include "proxysql.selectorLabels" . | nindent 4 }}

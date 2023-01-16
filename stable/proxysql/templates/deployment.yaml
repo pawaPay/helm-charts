@@ -28,6 +28,9 @@ spec:
             - name: admin
               containerPort: 6032
               protocol: TCP
+            - name: metrics
+              containerPort: 6070
+              protocol: TCP
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
