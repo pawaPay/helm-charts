@@ -1,7 +1,10 @@
 image:
-  repository: 768383028426.dkr.ecr.eu-central-1.amazonaws.com/pawapay-proxysql
-  tag: "2023_01_05_17_46_26" # must be in quotes
+  repository: proxysql/proxysql
+  tag: "2.4.6" # must be in quotes
   pullPolicy: IfNotPresent
+
+serviceAccount:
+  create: false
 
 resources:
   limits:
