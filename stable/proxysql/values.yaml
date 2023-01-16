@@ -1,0 +1,15 @@
+image:
+  repository: proxysql/proxysql
+  tag: "2.4.6" # must be in quotes
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
+  requests:
+    cpu: 500m
+    memory: 256Mi

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    {{- include "proxysql.labels" $ | nindent 4 }}
+spec:
+  ports:
+    - name: proxysql
+      protocol: TCP
+      port: 6033
+      targetPort: proxysql
+    - name: admin
+      protocol: TCP
+      port: 6032
+      targetPort: admin
+  selector:
+    {{- include "proxysql.selectorLabels" . | nindent 4 }}
