@@ -45,6 +45,16 @@ entries:
   proxysql:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2023-01-24T10:15:54.050910989Z"
+    description: A Helm chart for Kubernetes
+    digest: 46392ee4c1eaa6d16e3f2f4e0e8c42e00f51b30effc6b4cf3d1dbc3c60f616ac
+    name: proxysql
+    type: application
+    urls:
+    - https://github.com/pawaPay/helm-charts/releases/download/proxysql-0.0.3/proxysql-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2023-01-17T20:27:32.770165308Z"
     description: A Helm chart for Kubernetes
     digest: 8257c9ea8016e46fe5c76cb7f46ff497b5db5d6c87747007e4293c96e7da3295
