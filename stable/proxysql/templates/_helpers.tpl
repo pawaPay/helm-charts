@@ -35,7 +35,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{- define "proxysql.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
+{{- if .Values.serviceAccount.enabled }}
 {{- default (include "proxysql.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
