@@ -1,6 +1,6 @@
 image:
   repository: proxysql/proxysql
-  tag: "2.4.6" # must be in quotes
+  tag: "2.4.8" # must be in quotes
   pullPolicy: IfNotPresent
 
 serviceAccount:

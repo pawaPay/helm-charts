@@ -1,0 +1,113 @@
+{{- if .Values.rollout }}
+{{- if .Values.rollout.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  labels:
+    {{- include "proxysql.labels" . | nindent 4 }}
+    app.kubernetes.io/appVersion: "{{ .Values.rollout.image.tag }}"
+{{- if .Values.rollout.labels }}
+{{ toYaml .Values.rollout.labels | indent 4 }}
+{{- end }}
+{{- if .Values.rollout.annotations }}
+  annotations:
+{{ toYaml .Values.rollout.annotations | indent 4 }}
+{{- end }}
+  name: {{ template "proxysql.name" . }}
+spec:
+  strategy:
+  {{- if eq .Values.rollout.strategy "blueGreen" }}
+    blueGreen: 
+      activeService: {{ template "proxysql.name" . }}
+      previewService: {{ template "proxysql.name" . }}-preview
+      autoPromotionEnabled: {{ .Values.rollout.autoPromotionEnabled }}
+  {{- else }}
+    canary:
+      steps:
+{{ toYaml .Values.rollout.steps | indent 8 }}
+  {{- end }}
+  replicas: {{ .Values.rollout.replicas }}
+  revisionHistoryLimit: {{ .Values.rollout.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      {{- include "proxysql.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+{{- if .Values.rollout.podAnnotations }}
+{{ toYaml .Values.rollout.podAnnotations | indent 8 }}
+{{- end }}
+      labels:
+{{ include "proxysql.selectorLabels" . | indent 8 }}
+{{- if .Values.rollout.podLabels }}
+{{ toYaml .Values.rollout.podLabels | indent 8 }}
+{{- end }}
+    spec:
+      {{- if .Values.rollout.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.rollout.hostAliases | indent 6 }}
+      {{- end }}
+      {{- if .Values.rollout.initContainers }}
+      initContainers:
+{{ toYaml .Values.rollout.initContainers | indent 6 }}
+      {{- end }}
+      {{- if .Values.rollout.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.rollout.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if .Values.rollout.tolerations }}
+      tolerations:
+{{ toYaml .Values.rollout.tolerations | indent 8 -}}
+      {{- end }}
+      {{- if .Values.rollout.affinity }}
+      affinity:
+      {{ toYaml .Values.rollout.affinity | indent 8 -}}
+      {{- end }}
+      {{- with .Values.rollout.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ template "proxysql.name" . }}
+        image: "{{ .Values.rollout.image.repository }}:{{ .Values.rollout.image.tag }}"
+        imagePullPolicy: {{ .Values.rollout.image.pullPolicy }}
+        {{- if .Values.rollout.containerSecurityContext }}
+        securityContext:      
+{{ toYaml .Values.rollout.containerSecurityContext | indent 10 }}
+          {{- end }}
+        ports:
+          - name: proxysql
+            containerPort: 6033
+            protocol: TCP
+          - name: admin
+            containerPort: 6032
+            protocol: TCP
+          - name: metrics
+            containerPort: 6070
+            protocol: TCP
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+        {{- toYaml .Values.resources | nindent 12 }}
+      {{ if .Values.imagePullSecrets }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      {{- if .Values.serviceAccount.enabled -}}
+      serviceAccountName: {{ .Chart.Name }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+{{- end }}
