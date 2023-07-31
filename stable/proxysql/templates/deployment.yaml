@@ -29,7 +29,7 @@ spec:
           - >
             echo "Adding tag for AWS Secrets Manager secret";
             {{ if .Values.appName }}
-            echo "Command to run: aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Values.appName }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]'"
+            echo "Command to run: aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Values.appName }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]'";
             aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Values.appName }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]';
             {{ else }}
             echo "Command to run: aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Release.Name }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]'";
