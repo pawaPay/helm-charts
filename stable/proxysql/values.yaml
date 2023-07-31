@@ -4,11 +4,13 @@ image:
   pullPolicy: IfNotPresent
 
 initContainer:
+  enabled: true
   image:
     repository: amazon/aws-cli
     tag: "2.13.4"
     pullPolicy: IfNotPresent
 
+appName: "my-app"
 proxysql_role: primary
 environment: development
 
