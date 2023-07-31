@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
   labels:
     {{- include "proxysql.labels" . | nindent 4 }}
 spec:
@@ -18,6 +18,18 @@ spec:
       labels:
         {{- include "proxysql.selectorLabels" . | nindent 8 }}
     spec:
+      initContainers:
+        - name: {{ .Chart.Name }}-add-tag
+          image: {{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}
+          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+          command:
+          - bash
+          - -c
+          - >
+            echo "Adding tag for AWS Secrets Manager secret";
+            aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Release.Name }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]'
+            echo "Done";
+            
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}

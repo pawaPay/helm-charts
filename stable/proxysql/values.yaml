@@ -3,6 +3,15 @@ image:
   tag: "2.4.6" # must be in quotes
   pullPolicy: IfNotPresent
 
+initContainer:
+  image:
+    repository: amazon/aws-cli
+    tag: "2.13.4"
+    pullPolicy: IfNotPresent
+
+proxysql_role: primary
+environment: development
+
 serviceAccount:
   enabled: false
 
