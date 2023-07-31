@@ -27,7 +27,7 @@ spec:
           - -c
           - >
             echo "Adding tag for AWS Secrets Manager secret";
-            aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Release.Name }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]'
+            aws secretsmanager tag-resource --secret-id {{ .Values.environment }}-{{ .Release.Name }}-rds-credentials --tags '[{"Key": "proxysql_rds_role", "Value": "{{ .Values.proxysql_role }}"}, {"Key": "proxysql_rds_enabled", "Value": "true"}]';
             echo "Done";
             
       containers:
