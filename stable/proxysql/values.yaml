@@ -3,6 +3,9 @@ image:
   tag: "2.4.6" # must be in quotes
   pullPolicy: IfNotPresent
 
+annotations:
+  # key: value
+
 initContainer:
   enabled: true
   image:
@@ -15,12 +18,14 @@ proxysql_role: primary
 environment: development
 
 serviceAccount:
-  enabled: false
+  enabled: true
+  annotations:
+    # key: value
 
 resources:
   limits:
-    cpu: 2000m
-    memory: 2048Mi
+    cpu: 1
+    memory: 1024Mi
   requests:
     cpu: 50m
-    memory: 256Mi
+    memory: 128Mi
