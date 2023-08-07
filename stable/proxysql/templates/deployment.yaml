@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
+  {{- if .Values.annotations }}
+  annotations:
+{{ toYaml .Values.annotations | indent 4 }}
+  {{- end }}
   labels:
     {{- include "proxysql.labels" . | nindent 4 }}
 spec:
@@ -11,10 +15,6 @@ spec:
   replicas: 1
   template:
     metadata:
-    {{- if .Values.annotations }}
-      annotations:
-    {{ toYaml .Values.annotations | indent 4 }}
-    {{- end }}
       labels:
         {{- include "proxysql.selectorLabels" . | nindent 8 }}
     spec:
