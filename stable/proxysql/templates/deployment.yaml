@@ -52,7 +52,11 @@ spec:
               protocol: TCP
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources | nindent 12 -}}
+          {{- if .Values.probes }}
+          probes:
+            {{- toYaml .Values.probes | nindent 12 }}
+          {{- end }}
       {{ if .Values.imagePullSecrets }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
