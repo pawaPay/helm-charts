@@ -16,6 +16,7 @@ initContainer:
 appName: "my-app"
 proxysql_role: primary
 environment: development
+use_aws_aurora: false
 
 serviceAccount:
   enabled: true
