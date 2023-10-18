@@ -51,6 +51,12 @@ spec:
               containerPort: 6070
               protocol: TCP
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: USE_AWS_AURORA
+            value: "{{ .Values.use_aws_aurora }}"
+        {{- if .Values.env }}
+{{ toYaml .Values.env | indent 10 }}
+        {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 -}}
         {{- if .Values.probes }}

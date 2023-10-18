@@ -16,6 +16,12 @@ initContainer:
 appName: "my-app"
 proxysql_role: primary
 environment: development
+use_aws_aurora: false # this variable is used to configure feature flag for proxysql to use AWS Aurora
+
+# -- Environment variables to be passed to the app container
+env:
+# - name: ENVIRONMENT
+#   value: "dev"
 
 serviceAccount:
   enabled: true
