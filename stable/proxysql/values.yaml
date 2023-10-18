@@ -1,4 +1,5 @@
 image:
+  # We use the public proxysql repo and tag, because we don't want to expose our private ECR repo details because this is a public repo
   repository: proxysql/proxysql
   tag: "2.4.6" # must be in quotes
   pullPolicy: IfNotPresent
